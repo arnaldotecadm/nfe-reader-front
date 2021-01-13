@@ -1,5 +1,6 @@
 import { HttpEventType } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { Observable } from "rxjs";
 import { UploadFilesService } from "../upload-files.service";
@@ -10,6 +11,8 @@ import { UploadFilesService } from "../upload-files.service";
   styleUrls: ["./upload-files.component.scss"],
 })
 export class UploadFilesComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   public contratos$: Observable<any[]>;
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
   dataSource;
@@ -29,6 +32,7 @@ export class UploadFilesComponent implements OnInit {
   ngOnInit() {
     this.fileInfos = this.uploadService.getFiles();
     this.dataSource = new MatTableDataSource();
+    this.dataSource.paginator = this.paginator;
   }
 
   selectFiles(event) {
@@ -36,6 +40,7 @@ export class UploadFilesComponent implements OnInit {
     this.indexToBeProcessed = 0;
     this.dataSource.data = [...this.dataSource.data, ...event.target.files];
     this.selectedFiles = event.target.files;
+    this.dataSource.paginator = this.paginator;
   }
 
   upload(idx, file) {
