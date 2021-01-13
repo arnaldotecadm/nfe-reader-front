@@ -1,0 +1,101 @@
+<!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+  <span>{{ progressInfo.fileName }}</span>
+  <div class="progress">
+    <div
+      class="progress-bar progress-bar-info progress-bar-striped"
+      role="progressbar"
+      attr.aria-valuenow="{{ progressInfo.value }}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [ngStyle]="{ width: progressInfo.value + '%' }"
+    >
+      {{ progressInfo.value }}%
+    </div>
+  </div>
+</div> -->
+
+<div class="alert alert-light" role="alert">{{ message }}</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header form-group">
+        <div class="row col-md-12">
+          <h4 class="card-title col-md-10">
+            Itens de NF para serem Processadas
+          </h4>
+          <div class="upload-btn-wrapper">
+            <button class="btn btn-success col-md-12">
+              Localizar os Arquivos
+            </button>
+            <input
+              id="singleFile"
+              name="myfile"
+              type="file"
+              multiple
+              (change)="selectFiles($event)"
+            />
+          </div>
+        </div>
+
+        <div class="row col-md-12">
+          <p class="category col-md-10">Notas Fiscais para serem analisadas.</p>
+          <button
+            class="btn btn-success col-md-2"
+            [disabled]="!selectedFiles"
+            (click)="uploadFiles()"
+          >
+            Processar Arquivos
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 container-fluid"
+          >
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef>No.</th>
+              <td mat-cell *matCellDef="let element">{{ element.nNF }}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.destinatario ? element.destinatario : element.name }}
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>Weight</th>
+              <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef>Symbol</th>
+              <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              [class.processing]="row?.status == 'processing'"
+              [class.success]="row?.status == 'success'"
+              [class.failure]="row?.status == 'failure'"
+            ></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

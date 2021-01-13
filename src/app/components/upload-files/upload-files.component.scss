@@ -1,0 +1,19 @@
+.processing {
+  background-color: rgb(255, 255, 121);
+}
+
+.success {
+  background-color: rgb(148 226 148);
+}
+
+.failure {
+  background-color: red;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: large !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  opacity: 0 !important;
+}
